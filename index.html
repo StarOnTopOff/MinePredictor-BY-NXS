@@ -3,252 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NXS Predictor</title>
+    <title>NXS ON TOP</title>
     <style>
+        /* Style général de la page */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1E1E2F;
-            color: #FFFFFF;
+            background: linear-gradient(120deg, #1c1c1c, #383838);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 8vw;
             margin: 0;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
-        .title {
-            font-size: 48px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            color: #FFFFFF;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            background: linear-gradient(90deg, #8A2BE2, #FFFFFF, #8A2BE2);
+            padding: 5vw;
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            background-clip: text;
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientMove 3s infinite, textShadowAnimation 2s infinite;
+            color: transparent;
+            animation: glowingText 3s ease-in-out infinite;
         }
 
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
+        @keyframes glowingText {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px #9b59b6);
             }
             50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
+                filter: drop-shadow(0 0 20px #8e44ad);
             }
         }
 
-        @keyframes textShadowAnimation {
-            0% {
-                text-shadow: 0 0 10px #8A2BE2, 0 0 20px #8A2BE2;
-            }
-            50% {
-                text-shadow: 0 0 20px #8A2BE2, 0 0 30px #8A2BE2;
-            }
-            100% {
-                text-shadow: 0 0 10px #8A2BE2, 0 0 20px #8A2BE2;
-            }
-        }
-
-        .controls {
-            margin-bottom: 30px;
-            text-align: center;
-            background: #2B2B40;
-            padding: 20px;
+        .container {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            width: 100%;
+            padding: 5vw;
+            border: 2px solid #9b59b6; /* Couleur violet pour la bordure */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            width: 90%;
             max-width: 400px;
+            /* Suppression de l'animation de rotation pour arrêter le mouvement */
         }
 
-        .controls input, .controls button {
-            padding: 12px;
-            font-size: 16px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 8px;
-            outline: none;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .controls input {
-            background: #3B3B5B;
-            color: #FFF;
-        }
-
-        .controls button {
-            background-color: #8A2BE2;
-            color: #FFF;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .controls button:hover {
-            background-color: #6A0D91;
-            transform: scale(1.05);
-        }
-
-        .accuracy {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #FFFFFF;
-        }
-
-        .grid {
-            display: none; /* Hidden by default, shown after loading */
-            grid-template-columns: repeat(5, 1fr);
-            grid-gap: 10px;
-            justify-content: center;
-            width: 100%;
-            max-width: 400px;
-            margin-top: 20px;
-        }
-
-        .cell {
-            width: 100%;
-            padding-top: 100%; /* Maintains the square ratio */
-            position: relative;
-            background-color: #4B0082;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s, background-color 0.3s;
+        .predictor {
+            margin-top: 5vw;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: #FFF;
         }
 
-        .cell.diamond {
-            background-color: #FFD700;
-            transform: scale(1.1);
+        .input-field {
+            background: transparent;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            padding: 2.5vw;
+            width: 80%;
+            margin-bottom: 5vw;
+            color: #ffffff;
+            font-size: 5vw;
+            text-align: center;
+            animation: inputAnimation 4s infinite alternate;
         }
 
-        .cell:hover {
-            transform: scale(1.05);
+        @keyframes inputAnimation {
+            0% {
+                border-color: #9b59b6;
+                box-shadow: 0 0 10px #9b59b6;
+            }
+            100% {
+                border-color: #8e44ad;
+                box-shadow: 0 0 10px #8e44ad;
+            }
         }
 
-        .cell > span {
+        .predict-button {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            border: none;
+            border-radius: 50px;
+            padding: 3vw 6vw;
+            color: #ffffff;
+            font-size: 5vw;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .predict-button::before {
+            content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Loading Spinner */
-        .loader {
-            border: 8px solid #2B2B40;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top: 8px solid #8A2BE2;
-            width: 80px;
-            height: 80px;
-            animation: spin 1s linear infinite;
-            margin-top: 20px;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .predict-button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
         }
 
-        @media (max-width: 600px) {
-            .title {
-                font-size: 36px;
-                letter-spacing: 5px;
-            }
+        .predict-button:hover {
+            transform: scale(1.1);
+        }
 
-            .controls input, .controls button {
-                font-size: 14px;
-            }
+        .result {
+            margin-top: 7vw;
+            font-size: 5vw;
+            animation: resultAnimation 3s ease-in-out infinite;
+        }
 
-            .grid {
-                grid-gap: 8px;
+        @keyframes resultAnimation {
+            0%, 100% {
+                color: #9b59b6;
             }
-
-            .cell {
-                font-size: 24px;
+            50% {
+                color: #8e44ad;
             }
         }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 5vw;
+            background-color: #2c3e50; /* Gris foncé pour la grille */
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .grid div {
+            background-color: #9b59b6; /* Couleur violet pour les cellules de la grille */
+            color: #fff;
+            font-size: 5vw;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Styles pour l'animation de chargement NXS */
+        .loading {
+            display: none; /* Initialement caché */
+            font-size: 8vw;
+            margin-top: 5vw;
+            color: #ffffff;
+            text-shadow: 0 0 5px #8e44ad, 0 0 10px #8e44ad, 0 0 15px #8e44ad;
+            animation: loadingAnimation 2s ease-in-out infinite;
+            opacity: 0;
+            white-space: nowrap;
+        }
+
+        @keyframes loadingAnimation {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        /* Animation lettre par lettre */
+        .loading span {
+            display: inline-block;
+            animation: letterAnimation 0.5s ease-in-out infinite;
+        }
+
+        @keyframes letterAnimation {
+            0%, 100% {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            50% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Media Query pour les très petits écrans */
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 10vw;
+            }
+
+            .container {
+                padding: 6vw;
+            }
+
+            .input-field {
+                font-size: 6vw;
+            }
+
+            .predict-button {
+                font-size: 6vw;
+                padding: 4vw 8vw;
+            }
+
+            .result {
+                font-size: 6vw;
+            }
+
+            .grid div {
+                font-size: 6vw;
+                padding: 8px;
+            }
+
+            .loading {
+                font-size: 10vw;
+            }
+        }
+
     </style>
 </head>
 <body>
-    <div class="title">NXS</div>
-
-    <div class="controls">
-        <input type="text" id="serverSeed" placeholder="Enter Server Seed">
-        <input type="text" id="clientSeed" placeholder="Enter Client Seed">
-        <input type="text" id="playerToken" placeholder="Enter Player Token (optional)">
-        <input type="number" id="numMines" placeholder="Enter Number of Mines" value="10">
-        <button onclick="generateGrid()">Generate</button>
+    <div class="container">
+        <h1>NXS PREDICTOR</h1>
+        <div class="predictor">
+            <input type="text" id="token" class="input-field" placeholder="Token">
+            <input type="text" id="clientSeed" class="input-field" placeholder="Client Seed">
+            <input type="text" id="serverSeed" class="input-field" placeholder="Server Seed">
+            <button id="predictBtn" class="predict-button">Prédire</button>
+        </div>
+        <div id="loading" class="loading">
+            <span>N</span>
+            <span>X</span>
+            <span>S</span>
+        </div>
+        <div id="grid" class="grid"></div>
     </div>
 
-    <div class="accuracy" id="accuracy">Accuracy: 100%</div>
-    <div id="loader" class="loader"></div>
-    <div class="grid" id="grid"></div>
-
-    <script>
-        function generateGrid() {
-            const loader = document.getElementById('loader');
-            const grid = document.getElementById('grid');
-            const accuracyElement = document.getElementById('accuracy');
-
-            loader.style.display = 'block';
-            grid.style.display = 'none';
-
-            setTimeout(() => {
-                const numMines = parseInt(document.getElementById('numMines').value);
-
-                grid.innerHTML = '';
-
-                const totalCells = 25;
-                const cells = Array(totalCells).fill('⚫️');
-
-                // Improved accuracy logic
-                const randomPositions = [];
-                for (let i = 0; i < totalCells; i++) {
-                    randomPositions.push(i);
-                }
-
-                // Shuffle positions
-                for (let i = randomPositions.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [randomPositions[i], randomPositions[j]] = [randomPositions[j], randomPositions[i]];
-                }
-
-                // Get the first 3 positions for diamonds
-                const diamondIndices = randomPositions.slice(0, 3);
-
-                diamondIndices.forEach(index => cells[index] = '💎');
-
-                cells.forEach(content => {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    if (content === '💎') {
-                        cell.classList.add('diamond');
-                    }
-                    const span = document.createElement('span');
-                    span.textContent = content;
-                    cell.appendChild(span);
-                    grid.appendChild(cell);
-                });
-
-                // Set accuracy to 100% to indicate perfect prediction
-                const accuracy = 100;
-
-                accuracyElement.textContent = `Accuracy: ${accuracy}%`;
-
-                loader.style.display = 'none';
-                grid.style.display = 'grid';
-            }, 3500); // Loading time
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
